@@ -108,8 +108,8 @@ int main(int argc, char** argv){
     bool yawLeft = false;
     bool yawRight = false;
 
-    float camMoveSpeed = 0.1;
-    float camRotateSpeed = 0.01;
+    float camMoveSpeed = 0.01;
+    float camRotateSpeed = 0.001;
 
     while(isRunning){
         while(SDL_PollEvent(&event)){
@@ -201,6 +201,14 @@ int main(int argc, char** argv){
         camera.position += vec3(camera.right.x * camMoveSpeed * moveLeft,
                                 camera.right.y * camMoveSpeed * moveLeft,
                                 camera.right.z * camMoveSpeed * moveLeft);
+
+        camera.position -= vec3(camera.up.x * camMoveSpeed * moveUp,
+                                camera.up.y * camMoveSpeed * moveUp,
+                                camera.up.z * camMoveSpeed * moveUp);
+            
+        camera.position += vec3(camera.up.x * camMoveSpeed * moveDown,
+                                camera.up.y * camMoveSpeed * moveDown,
+                                camera.up.z * camMoveSpeed * moveDown);
 
         camera.orientation.rotate(camera.right, -camRotateSpeed * pitchUp);
         camera.orientation.rotate(camera.right, camRotateSpeed * pitchDown);
